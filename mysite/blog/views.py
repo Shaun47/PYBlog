@@ -9,3 +9,15 @@ def home(request):
         'posts': posts
     }
     return render(request,'home.html',context)
+
+
+def post_detail(request,year,month,day,post):
+    post = get_object_or_404(Post, slug=post,
+                                publish__year=year,
+                                publish__month=month,
+                                publish__day = day
+                             
+                             )
+    
+    
+    return render(request,'single_page.html',{'post':post})
