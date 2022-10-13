@@ -1,10 +1,7 @@
 {% load static %}
 
 <div class="row tm-row tm-mt-100 tm-mb-75">
-    <div class="tm-prev-next-wrapper">
-        <a href="#" class="mb-2 tm-btn tm-btn-primary tm-prev-next disabled tm-mr-20">Prev</a>
-        <a href="#" class="mb-2 tm-btn tm-btn-primary tm-prev-next">Next</a>
-    </div>
+
     <div class="tm-paging-wrapper">
         <span class="d-inline-block mr-3">Page</span>
         <nav class="tm-paging-nav d-inline-block">
@@ -12,7 +9,7 @@
             <ul>
                 {% if posts.has_previous %}
                 <li class="tm-paging-item active">
-                    <a href="?page={{ users.previous_page_number }}" class="mb-2 tm-btn tm-paging-link">Previous</a>
+                    <a href="?page={{ users.previous_page_number }}" class="mb-2 tm-btn tm-paging-link">Prev</a>
                 </li>
                 {% else %}
                 <li class="tm-paging-item active">
