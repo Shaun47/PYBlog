@@ -32,5 +32,26 @@ def post_detail(request,year,month,day,post):
                              
                              )
     
+    comments = post.comments.filter(active=True)
+    new_comment = None
+    if request.method == 'POST':
+        # comment_form = CommentForm(data=request.POST)
+        # if comment_form.is_valid():
+        #     new_comment = comment_form.save(commit=False)
+        #     new_comment.post = post
+        #     new_comment.save()
+        
+        # else:
+        #     comment_form = CommentForm()
+        print(request.method.POST['name'])
+        exit()
+
     
-    return render(request,'single_page.html',{'post':post})
+    
+    
+    return render(request,'single_page.html',{'post':post,
+                                                # 'comments': comments,
+                                                # 'new_comment': new_comment,
+                                                # 'comment_form': comment_form,
+                                              
+                                              })

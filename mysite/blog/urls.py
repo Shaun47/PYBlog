@@ -7,5 +7,6 @@ app_name = 'blog'
 
 urlpatterns = [
     path('',views.home,name='post_list'),
-    path('<int:year>/<int:month>/<int:day>/<slug:post>/', views.post_detail,name="post_detail")
+    path('<int:year>/<int:month>/<int:day>/<slug:post>/', views.post_detail,name="post_detail"),
+    # path('/comment',views.comment, name="comment")
 ]

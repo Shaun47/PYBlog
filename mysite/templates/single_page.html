@@ -91,7 +91,8 @@ https://templatemo.com/tm-553-xtra-blog
                                 </div>                                
                                 <span class="d-block text-right tm-color-primary">June 21, 2020</span>
                             </div>
-                            <form action="" class="mb-5 tm-comment-form">
+                            <form  class="mb-5 tm-comment-form" method="POST">
+                                {% csrf_token %}
                                 <h2 class="tm-color-primary tm-post-title mb-4">Your comment</h2>
                                 <div class="mb-4">
                                     <input class="form-control" name="name" type="text">
