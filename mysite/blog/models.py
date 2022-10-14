@@ -26,7 +26,7 @@ class Post(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES,
         default='draft')
 
-    
+    #  Here we are creating canonical url for post
     def get_absolute_url(self):
         return reverse('blog:post_detail',
                        args=[self.publish.year,
