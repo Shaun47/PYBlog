@@ -13,6 +13,9 @@ from django.shortcuts import redirect
 # Create your views here.
 def home(request):
     posts = Post.published.all()
+
+    
+    
     paginator = Paginator(posts,2)
     page = request.GET.get('page')
     
@@ -26,7 +29,7 @@ def home(request):
     
     context = {
         'posts': posts,
-        'page' : page
+        'page' : page,
     }
     return render(request,'home.html',context)
 

@@ -26,7 +26,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES,
         default='draft')
-    tags = TaggableManager()
+    
 
     #  Here we are creating canonical url for post
     def get_absolute_url(self):
