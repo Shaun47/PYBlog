@@ -26,7 +26,7 @@ class Post(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES,
         default='draft')
 
-    
+    #  Here we are creating canonical url for post
     def get_absolute_url(self):
         return reverse('blog:post_detail',
                        args=[self.publish.year,
@@ -47,7 +47,7 @@ class Post(models.Model):
     
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='Comments')
+    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
     name = models.CharField(max_length=80)
     email = models.EmailField()
     body = models.TextField()
