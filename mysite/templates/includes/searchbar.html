@@ -1,8 +1,8 @@
 {% load static %}
 
 <div class="col-12">
-    <form method="GET" class="form-inline tm-mb-80 tm-search-form">                
-        <input class="form-control tm-search-input" name="query" type="text" placeholder="Search..." aria-label="Search">
+    <form method="GET" class="form-inline tm-mb-80 tm-search-form" action="{% url 'blog:post_list' %}">                
+        <input class="form-control tm-search-input" name="query" type="text" value="{{query}}" placeholder="Search..." aria-label="Search">
         <button class="tm-search-button" type="submit">
             <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
         </button>                                

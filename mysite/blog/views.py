@@ -6,7 +6,7 @@ from .forms import CommentForm
 from django.urls import reverse
 from django.shortcuts import redirect
 from taggit.models import Tag
-
+from django.db.models import Q
 
 
 
@@ -16,12 +16,25 @@ def home(request, tag_slug=None):
     posts = Post.published.all()
     tag = None
 
+
+    query = ''
+    
+    if request.GET.get('query'):
+        query = request.GET.get('query')
+    
+
+
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         posts = posts.filter(tags__in = [tag])
+    else:
+        if query:
+            tag = get_object_or_404(Tag, slug=query)
+            posts = posts.filter(Q(title__icontains=query) | Q(body__icontains=query) | Q(tags__in=[tag]))
+        else:
+            posts = Post.published.all()
     
-    
-    paginator = Paginator(posts,2)
+    paginator = Paginator(posts,4)
     page = request.GET.get('page')
     
     try:
@@ -36,6 +49,7 @@ def home(request, tag_slug=None):
         'posts': posts,
         'page' : page,
         'tag'  : tag, 
+        'query': query,
     }
     return render(request,'home.html',context)
 
