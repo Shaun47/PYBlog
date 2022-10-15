@@ -5,15 +5,20 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import CommentForm
 from django.urls import reverse
 from django.shortcuts import redirect
+from taggit.models import Tag
 
 
 
 
 
 # Create your views here.
-def home(request):
+def home(request, tag_slug=None):
     posts = Post.published.all()
+    tag = None
 
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        posts = posts.filter(tags__in = [tag])
     
     
     paginator = Paginator(posts,2)
@@ -30,6 +35,7 @@ def home(request):
     context = {
         'posts': posts,
         'page' : page,
+        'tag'  : tag, 
     }
     return render(request,'home.html',context)
 
@@ -42,14 +48,12 @@ def post_detail(request,year,month,day,post):
                              
                              )
     
+
+
     comments = post.comments.filter(active=True)
     new_comment = None
     comment_form = CommentForm()
-    context = {
-        'post':post,
-        'comments': comments,
-        'comment_form': comment_form 
-    }
+
     if request.method == 'POST':
     #     if request.POST.is_valid():
                 
@@ -70,6 +74,13 @@ def post_detail(request,year,month,day,post):
     else:
         comment_form = CommentForm()
             
-    
+    post_tags_ids = post.tags.values_list('id',flat=True)
+    similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
+    context = {
+        'post':post,
+        'comments': comments,
+        'comment_form': comment_form, 
+        'similar_posts': similar_posts,
+    }
     
     return render(request,'single_page.html',context)
